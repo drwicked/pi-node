@@ -14,13 +14,13 @@ const runScripts = (url) => exec(`youtube-dl -o '/media/easystore/Cthulhu/youtub
   }
   console.log(`stdout: ${stdout}`);
 });
+console.log('process.env.SECURITY_KEY', process.env.SECURITY_KEY);
 
 const server = micro(async (req) => {
   if (req.method !== 'POST') {
     throw createError(404, 'Not Found');
   }
   const { url, auth } = await json(req);
-  console.log('process.env.SECURITY_KEY', process.env.SECURITY_KEY);
   if (auth !== process.env.SECURITY_KEY) {
     return {
       message: 'not allowed!'
