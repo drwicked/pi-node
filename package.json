@@ -1,0 +1,12 @@
+{
+  "name": "ytdl-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "micro -l tcp://0.0.0.0:${PORT-3636}"
+  },
+  "dependencies": {
+    "micro": "^9.3.4"
+  }
+}
