@@ -19,7 +19,13 @@ const server = micro(async (req) => {
   if (req.method !== 'POST') {
     throw createError(404, 'Not Found');
   }
-  const { url } = await json(req);
+  const { url, auth } = await json(req);
+  console.log('process.env.SECURITY_KEY', process.env.SECURITY_KEY);
+  if (auth !== process.env.SECURITY_KEY) {
+    return {
+      message: 'not allowed!'
+    };
+  }
   if (url) {
     runScripts(url);
   }
