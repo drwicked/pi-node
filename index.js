@@ -3,7 +3,7 @@ const { exec } = require('child_process');
 
 const { json, createError } = micro;
 
-const runScripts = (url) => exec(`youtube-dl -o '/media/easystore/Cthulhu/youtube/%(uploader)s - %(title)s.%(ext)s' ${url}`, (error, stdout, stderr) => {
+const runScripts = (url) => exec(`youtube-dl -f best -o '/media/easystore/Cthulhu/youtube/%(uploader)s - %(title)s.%(ext)s' ${url}`, (error, stdout, stderr) => {
   if (error) {
       console.log(`error: ${error.message}`);
       return;
@@ -27,7 +27,12 @@ const server = micro(async (req) => {
     };
   }
   if (url) {
+    console.log(`Starting download of ${url}`);
     runScripts(url);
+  } else {
+    return {
+      message: 'no url'
+    }
   }
   return {
     message: `${url} downloading`
